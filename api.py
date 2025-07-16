@@ -5,7 +5,7 @@ import uvicorn
 import os
 import io
 from dotenv import load_dotenv
-NAI_TOKEN="pst-j1cC6hAwTc1f3ADWDGiXrvxEH2RzpDRaRA45tyaMpWBvlcBqm9GcB9cKN32JWN7R"
+
 load_dotenv()
 
 from nekoai import NovelAI
