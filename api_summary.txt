@@ -1,0 +1,63 @@
+api.py 接口功能总结：
+
+1.  GET /
+    功能: 根路径，用于检查 API 是否正在运行。
+    返回: 一个简单的 JSON 消息 {"message": "NekoAI API is running"}。
+
+2.  POST /generate-image/
+    功能: 根据提供的文本提示和参数生成图像。
+    请求体 (ImageRequest):
+        prompt (str): 图像生成的文本提示。
+        model (str, 可选, 默认 "v4"): 用于生成图像的模型（例如 "v3", "v4", "v4_5" 等）。
+        res (str, 可选, 默认 "normal_portrait"): 图像分辨率预设（例如 "small_portrait", "normal_landscape", "wallpaper_square" 等）。
+        steps (int, 可选, 默认 28): 生成步骤数。
+        scale (float, 可选, 默认 6.0): 引导尺度。
+        sampler (str, 可选, 默认 "euler_anc"): 采样器类型（例如 "euler", "dpm2s_anc" 等）。
+        params_version (int, 可选, 默认 3): 参数版本。
+        noise_schedule (str, 可选, 默认 "karras"): 噪声调度类型（例如 "native", "karras" 等）。
+        uc_preset (int, 可选, 默认 2): 不确定性条件预设。
+    返回: 生成的图像（PNG 格式的字节流）。
+    错误: 如果 NAI_TOKEN 环境变量未设置，或请求参数无效，则返回 HTTP 错误。
+
+3.  POST /lineart/
+    功能: 对上传的图像执行线稿处理。
+    请求体: file (UploadFile): 要处理的图像文件。
+    返回: 处理后的线稿图像（PNG 格式的字节流）。
+    错误: 如果 NAI_TOKEN 环境变量未设置，或图像处理失败，则返回 HTTP 错误。
+
+4.  POST /sketch/
+    功能: 对上传的图像执行草图处理。
+    请求体: file (UploadFile): 要处理的图像文件。
+    返回: 处理后的草图图像（PNG 格式的字节流）。
+    错误: 如果 NAI_TOKEN 环境变量未设置，或图像处理失败，则返回 HTTP 错误。
+
+5.  POST /background-removal/
+    功能: 对上传的图像执行背景移除。
+    请求体: file (UploadFile): 要处理的图像文件。
+    返回: 移除背景后的图像（PNG 格式的字节流）。
+    错误: 如果 NAI_TOKEN 环境变量未设置，或图像处理失败，则返回 HTTP 错误。
+
+6.  POST /declutter/
+    功能: 对上传的图像执行去杂乱处理。
+    请求体: file (UploadFile): 要处理的图像文件。
+    返回: 去杂乱后的图像（PNG 格式的字节流）。
+    错误: 如果 NAI_TOKEN 环境变量未设置，或图像处理失败，则返回 HTTP 错误。
+
+7.  POST /colorize/
+    功能: 对上传的图像进行着色。
+    请求体:
+        file (UploadFile): 要处理的图像文件。
+        prompt (str, 可选, 默认 ""): 着色提示。
+        defry (int, 可选, 默认 0): 着色参数。
+    返回: 着色后的图像（PNG 格式的字节流）。
+    错误: 如果 NAI_TOKEN 环境变量未设置，或图像处理失败，则返回 HTTP 错误。
+
+8.  POST /change-emotion/
+    功能: 改变上传图像中人物的情绪。
+    请求体:
+        file (UploadFile): 要处理的图像文件。
+        emotion (EmotionOptions): 目标情绪（例如 "HAPPY", "SAD" 等）。
+        prompt (str, 可选, 默认 ""): 情绪改变提示。
+        emotion_level (EmotionLevel, 可选, 默认 "NORMAL"): 情绪强度级别。
+    返回: 情绪改变后的图像（PNG 格式的字节流）。
+    错误: 如果 NAI_TOKEN 环境变量未设置，或图像处理失败，则返回 HTTP 错误。
