@@ -8,6 +8,7 @@ api.py 接口功能总结：
     功能: 根据提供的文本提示和参数生成图像。
     请求体 (ImageRequest):
         prompt (str): 图像生成的文本提示。
+		negative_prompt （str): 图像生成的负面提示词
         model (str, 可选, 默认 "v4"): 用于生成图像的模型（例如 "v3", "v4", "v4_5" 等）。
         res (str, 可选, 默认 "normal_portrait"): 图像分辨率预设（例如 "small_portrait", "normal_landscape", "wallpaper_square" 等）。
         steps (int, 可选, 默认 28): 生成步骤数。

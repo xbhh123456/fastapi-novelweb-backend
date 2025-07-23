@@ -6,6 +6,8 @@ import os
 import io
 from dotenv import load_dotenv
 
+
+
 load_dotenv()
 
 from nekoai import NovelAI
@@ -14,8 +16,12 @@ from nekoai.types import EmotionOptions, EmotionLevel
 
 app = FastAPI()
 
+token = os.environ.get("NAI_TOKEN")
+client = NovelAI(token=token)
+
 class ImageRequest(BaseModel):
     prompt: str
+    negative_prompt: str  # 添加负向提示词
     model: str = "v4"
     res: str = "normal_portrait"
     steps: int = 28
@@ -99,6 +105,7 @@ async def generate_image(request: ImageRequest):
 
             images = await client.generate_image(
                 prompt=request.prompt,
+                negative_prompt=request.negative_prompt,  # 添加这行
                 model=model_val,
                 res_preset=res_preset_val,
                 steps=request.steps,
